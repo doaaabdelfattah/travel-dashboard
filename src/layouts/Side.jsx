@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { VscSignOut } from "react-icons/vsc";
 
-import { menuItems } from "../components/data";
+import { menuItems } from "../router/menuItems";
 import { BiSolidDashboard } from "react-icons/bi";
 
 const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
@@ -22,7 +23,7 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
     }));
   };
 
-  console.log("selected: ", selectedMenuItem);
+  // console.log("selected: ", selectedMenuItem);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -34,22 +35,12 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
         isOpen ? "translate-x-0" : " "
       }`}
     >
-      {/* Open & close Menu */}
-      {/* <div
-        className="text-white bg-slate-500 h-[50px] rounded-full flex justify-center items-center w-[50px] absolute top-6 -right-5 cursor-pointer hover:opacity-90 transition-all duration-300"
-        onClick={toggle}
-      >
-        <span>
-          {isOpen ? (
-            <MdOutlineKeyboardArrowRight size="25px" />
-          ) : (
-            <MdOutlineKeyboardArrowLeft size="25px" />
-          )}
-        </span>
-      </div> */}
-
       {/* USER ========== */}
-      <div className="flex justify-start items-center my-12 pl-5 gap-2">
+      <div className=" hover:text-main-color flex justify-end p-5 items-center cursor-pointer gap-2">
+        <span>Sign out</span>
+        <VscSignOut size={"25px"} />
+      </div>
+      <div className="flex justify-center items-center lg:flex-nowrap flex-wrap mb-10  gap-5">
         <div className=" object-cover">
           <img
             src="../../public/pic-person-01.jpg"
@@ -128,9 +119,9 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
             {/* ========= sub menu ============ */}
 
             <div
-              className={`flex submenu-wrapper border-border-color border-l-[1.5px] ml-6 ${
+              className={`lg:flex hidden  submenu-wrapper border-border-color border-l-[1.5px] ml-6 ${
                 submenu[index] ? "open" : ""
-              } ${isOpen ? "block" : "hidden"}`}
+              } ${isOpen ? "block" : "hidden"}  `}
             >
               {submenu[index] && item.submenu ? (
                 <ul className="flex flex-col ml-4 gap-2 pt-5 ">

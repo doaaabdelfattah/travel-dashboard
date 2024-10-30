@@ -1,3 +1,5 @@
+import BarChart from "../components/mainDashboard/BarChart";
+import LatestOrders from "../components/mainDashboard/LatestOrders";
 import LatestStats from "../components/mainDashboard/LatestStats";
 
 const DashboardMain = () => {
@@ -14,6 +16,14 @@ const DashboardMain = () => {
         </div>
       </div>
       <LatestStats />
+      <div className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-8 ">
+        <LatestOrders />
+        <LatestOrders />
+      </div>
+      <div className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-8 ">
+        <BarChart title={"Orders Last Week"} color={"#3d78e3"} />
+        <BarChart title={"Orders Last Week"} color={"#dcae8b"} />
+      </div>
     </div>
   );
 };

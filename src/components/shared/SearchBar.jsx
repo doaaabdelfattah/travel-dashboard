@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import MainBtn from "./MainBtn";
 const SearchBar = () => {
   return (
-    <div className="w-full bg-main-grey rounded-sm flex items-center gap-5 h-[70px]">
+    <div className="mt-5 w-full rounded-md bg-white shadow-sm flex items-center gap-5 h-[70px]">
       <div className="relative py-4 px-2 w-8/12">
         <span>
           <FiSearch
