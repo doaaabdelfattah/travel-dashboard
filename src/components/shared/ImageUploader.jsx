@@ -33,10 +33,11 @@ const ImageUploader = ({ setSelectedFile, setSelectedFiles }) => {
   const handleRemoveImgs = (index) => {
     const updatedPreview = imgsPreview.filter((_, i) => i !== index);
     setImgsPreview(updatedPreview);
-    const updatedFiles = Array.from(setSelectedFiles).filter(
-      (_, i) => i !== index
-    );
-    setSelectedFiles(updatedFiles);
+    setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    // const updatedFiles = Array.from(setSelectedFiles).filter(
+    //   (_, i) => i !== index
+    // );
+    // setSelectedFiles(updatedFiles);
   };
   return (
     <>

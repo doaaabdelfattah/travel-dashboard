@@ -41,6 +41,10 @@ const AddNewService = () => {
     if (selectedFiles.length > 0) {
       selectedFiles.forEach((file) => formData.append("imageUrls", file));
     }
+    // Log each item in the FormData
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
     dispatch(addServiceWithImage(formData));
   };
 

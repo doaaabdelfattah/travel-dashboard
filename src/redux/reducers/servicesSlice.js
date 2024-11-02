@@ -38,7 +38,7 @@ export const addServiceWithImage = createAsyncThunk('services/create', async (in
     const singleImageFormData = new FormData();
     singleImageFormData.append('imageUrl', info.get('imageUrl'));
 
-    const uploadResponse = await api.post('/uploads/', singleImageFormData, config);
+    const uploadResponse = await api.post('/upload/', singleImageFormData, config);
     const imageUrl = uploadResponse.data.imageUrl;
     const public_id = uploadResponse.data.public_id;
 
@@ -49,7 +49,7 @@ export const addServiceWithImage = createAsyncThunk('services/create', async (in
       multipleImageFormData.append('imageUrls', file);
     });
 
-    const uploadMultiple = await api.post('/uploads/upload-multiple', multipleImageFormData, config);
+    const uploadMultiple = await api.post('/upload/upload-multiple', multipleImageFormData, config);
     const imageUrls = uploadMultiple.data.imageUrls;
     const public_ids = uploadMultiple.data.public_ids;
 
