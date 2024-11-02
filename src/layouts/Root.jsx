@@ -17,7 +17,7 @@ const Root = () => {
           selectedMenuItem={selectedMenu}
           handleSelected={handleSelectedMenu}
         />
-        <div className="flex-1">
+        <div className="flex-1 bg-main-grey">
           <Outlet />
         </div>
       </div>

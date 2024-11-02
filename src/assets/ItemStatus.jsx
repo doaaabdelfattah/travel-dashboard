@@ -7,7 +7,7 @@ const statusData = [
     hoverColor: "#dab60d",
   },
   {
-    status: "Confirmed",
+    status: "Completed",
     mainColor: "#0043ce",
     hoverColor: "#0033a0",
   },
@@ -17,7 +17,7 @@ const statusData = [
     hoverColor: "#b81a22",
   },
   {
-    status: "Completed",
+    status: "Confirmed",
     mainColor: "#24A148",
     hoverColor: "#1e8b3f",
   },
@@ -36,6 +36,7 @@ const ItemStatus = ({ inputStatus }) => {
         backgroundColor: isHovered
           ? statusType.hoverColor
           : statusType.mainColor,
+        color: "white",
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

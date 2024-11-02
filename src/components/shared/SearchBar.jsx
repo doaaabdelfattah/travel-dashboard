@@ -1,22 +1,25 @@
-import React from "react";
 import { FiSearch } from "react-icons/fi";
-import MainBtn from "./MainBtn";
-const SearchBar = () => {
+
+const SearchBar = ({ onSearch }) => {
+  const handleInputChange = (e) => {
+    onSearch(e.target.value);
+  };
   return (
-    <div className="mt-5 w-full rounded-md bg-white shadow-sm flex items-center gap-5 h-[70px]">
-      <div className="relative py-4 px-2 w-8/12">
-        <span>
+    <div className="my-5 w-full rounded-md bg-white shadow-sm flex items-center justify-center  h-[70px]">
+      <div className="relative py-4 px-2 w-full">
+        <div>
           <FiSearch
-            className="absolute top-[50px] left-7 transform -translate-y-1/2 text-gray-400"
+            className="absolute top-[36px] left-[20px] transform -translate-y-1/2 text-dark-grey"
             size="20px"
           />
-        </span>
+        </div>
+
         <input
-          className="m-3 p-2 pl-10 w-full border-dark-grey outline-none border-2 bg-white rounded-sm "
-          placeholder="Search for any item..."
+          className="p-2 pl-10 w-full border-dark-grey outline-none border-[1.5px] bg-white rounded-sm "
+          placeholder="Search for any item . . ."
+          onChange={handleInputChange}
         />
       </div>
-      <MainBtn />
     </div>
   );
 };

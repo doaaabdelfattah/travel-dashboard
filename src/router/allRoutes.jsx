@@ -3,7 +3,7 @@ import Customers from "../pages/Customers";
 import DashboardMain from "../pages/DashboardMain";
 import Services from "../pages/Services";
 import Promotions from "../pages/Promotions";
-import AllServices from "../pages/services/AllServices";
+// import AllServices from "../pages/services/AllServices";
 import ManageServices from "../pages/services/ManageServices";
 import OrderDetails from "../components/orders/OrderDetails";
 import CustomersDetails from "../components/customers/CustomersDetails";
@@ -13,8 +13,8 @@ export const allRoutes = [
 
   // Services Paths ============
   { path: "/services", element: <Services /> },
-  { path: "/services/all", element: <AllServices /> },
-  { path: "/services/manage", element: <ManageServices /> },
+  // { path: "/services/all", element: <AllServices /> },
+  { path: "/services/:id", element: <ManageServices /> },
 
   // Orders Paths ============
   { path: "/orders", element: <Orders /> },

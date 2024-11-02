@@ -5,6 +5,9 @@ import orderReducer from './reducers/OrderSlice'
 import userReducer from './reducers/usersSlice'
 import servicesReducer from './reducers/servicesSlice'
 import airBalloonReducer from './reducers/airBalloonRidesSlice'
+import currencyReducer from './reducers/currencySlice'
+import companyReducer from "./reducers/companySlice";
+
 export const store = configureStore({
         reducer: {
                 // products: productsReducer,
@@ -13,5 +16,7 @@ export const store = configureStore({
                 users: userReducer,
                 services: servicesReducer,
                 rides: airBalloonReducer,
+                currency: currencyReducer,
+                company: companyReducer,
         }
 });

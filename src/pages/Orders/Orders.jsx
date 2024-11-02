@@ -1,18 +1,10 @@
 import { useDispatch } from "react-redux";
 import AllOrders from "../../components/orders/allOrders";
-import DataTable from "../../components/shared/Table/DataTable";
-import PageHeader from "../../components/shared/PageHeader";
-import SearchBar from "../../components/shared/SearchBar";
-import {
-  OrdersTableHeader,
-  UsersTableHeader,
-} from "../../components/shared/Table/TableHeaders";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchOrders } from "../../redux/reducers/OrderSlice";
-import ItemStatus from "../../assets/ItemStatus";
-import { Link } from "react-router-dom";
-import { fetchUsers } from "../../redux/reducers/usersSlice";
+
+import PrimaryHeader from "../../components/shared/PrimaryHeader";
 const Orders = () => {
   const dispatch = useDispatch();
   const { orders } = useSelector((state) => state.orders);
@@ -22,12 +14,9 @@ const Orders = () => {
   }, [dispatch]);
 
   return (
-    <div className="bg-main-grey">
-      <div className="wrapper">
-        <PageHeader header={"Orders"} />
-        <SearchBar />
-        <AllOrders />
-      </div>
+    <div className="wrapper">
+      <PrimaryHeader>Orders</PrimaryHeader>
+      <AllOrders />
     </div>
   );
 };

@@ -60,10 +60,12 @@ const DataTable = ({ header, inputData, itemRender, itemsPerPage = 10 }) => {
     <div>
       <table className="table-fixed w-full ">
         <thead>
-          <tr className="font-semibold p-3 bg-main-color/70 text-white border-y-2 border-dark-grey ">
+          <tr className="font-semibold p-3 bg-black/80 text-white border-y-2 border-dark-grey ">
             {header.map((header, index) => (
               <th
-                className="px-2 py-4 text-left cursor-pointer"
+                className={`px-2 py-4 text-left cursor-pointer ${
+                  header.hiddenOnSmall ? "hidden sm:table-cell" : ""
+                }`}
                 key={index}
                 onClick={() => handleHeaderClick(header)}
               >
@@ -90,7 +92,12 @@ const DataTable = ({ header, inputData, itemRender, itemsPerPage = 10 }) => {
               key={item._id || index}
             >
               {header.map((col, colIndex) => (
-                <td className="p-2" key={colIndex}>
+                <td
+                  className={`p-2 ${
+                    col.hiddenOnSmall ? "hidden sm:table-cell" : ""
+                  }`}
+                  key={colIndex}
+                >
                   {itemRender
                     ? itemRender(item, col.KEY)
                     : typeof item[col.KEY] === "object" &&

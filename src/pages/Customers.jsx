@@ -1,10 +1,11 @@
-import PageHeader from "../components/shared/PageHeader";
 import DataTable from "../components/shared/Table/DataTable";
 import { UsersTableHeader } from "../components/shared/Table/TableHeaders";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "../redux/reducers/usersSlice";
+import PrimaryHeader from "../components/shared/PrimaryHeader";
+import SecondaryHeader from "../components/shared/SecondaryHeader";
 const Customers = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
@@ -24,9 +25,9 @@ const Customers = () => {
   return (
     <div className="wrapper">
       {/* Header */}
-      <PageHeader header={"Customers"} />
+      <PrimaryHeader>Customers</PrimaryHeader>
       <div>
-        <h2 className="text-3xl font-semibold py-3">All users</h2>
+        <SecondaryHeader>All users</SecondaryHeader>
         <DataTable
           inputData={users}
           header={UsersTableHeader}
