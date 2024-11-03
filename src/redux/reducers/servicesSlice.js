@@ -36,31 +36,43 @@ export const addServiceWithImage = createAsyncThunk('services/create', async (in
   try {
     // Upload single image
     const singleImageFormData = new FormData();
-    singleImageFormData.append('imageUrl', info.get('imageUrl'));
-
+    for (const [key, value] of info.entries()) {
+      if (key === 'imageUrl' && value instanceof File) {
+          singleImageFormData.append('imageUrl', value);
+          break; // Stop after finding the first `File` entry for `imageUrl`
+      }
+  }
+  // Array.from(formData.entries());
+  if(Array.from(singleImageFormData.entries()).length > 0)
+  {
     const uploadResponse = await api.post('/upload/', singleImageFormData, config);
     const imageUrl = uploadResponse.data.imageUrl;
     const public_id = uploadResponse.data.public_id;
-
+    // Update the info object with correct data
+    info.set('imageUrl', imageUrl);
+    info.set('public_id', public_id);
+  }
     // Upload multiple images
+    
     const multipleImageFormData = new FormData();
     const imageFiles = info.getAll('imageUrls');
     imageFiles.forEach(file => {
       multipleImageFormData.append('imageUrls', file);
     });
-
-    const uploadMultiple = await api.post('/upload/upload-multiple', multipleImageFormData, config);
+    
+    if(Array.from(multipleImageFormData.entries()).length > 0)
+    {
+    const uploadMultiple = await api.post('/upload/upload-multiple', multipleImageFormData , config);
     const imageUrls = uploadMultiple.data.imageUrls;
     const public_ids = uploadMultiple.data.public_ids;
-
     // Update the info object with correct data
-    info.set('imageUrl', imageUrl);
-    info.set('public_id', public_id);
     info.set('imageUrls', JSON.stringify(imageUrls));
     info.set('public_ids', JSON.stringify(public_ids));
-
+    }
+    
+    
     // Upload All Service info
-    const { data } = await api.post('services/', info, config2);
+    const { data } = await api.post('service/serviceImage', info, config2);
     return fulfillWithValue(data);
 
   } catch (error) {
