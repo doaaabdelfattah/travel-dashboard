@@ -35,6 +35,9 @@ export const fetchRides = createAsyncThunk('rides/fetchRides', async () => {
 
 export const addNewRide = createAsyncThunk('rides/addNewRide', async (info, { rejectWithValue, fulfillWithValue }) => {
   try {
+
+    
+
     // Upload single image
     const singleImageFormData = new FormData();
     for (const [key, value] of info.entries()) {
@@ -69,6 +72,8 @@ export const addNewRide = createAsyncThunk('rides/addNewRide', async (info, { re
       info.set('public_ids', JSON.stringify(public_ids));
     }
 
+    
+
 
     // Upload All Service info
     const { data } = await api.post('balloon-rides/rideImage', info, config2);
@@ -80,6 +85,10 @@ export const addNewRide = createAsyncThunk('rides/addNewRide', async (info, { re
 
   }
 })
+
+
+
+
 
 
 const airBalloonRidesSlice = createSlice({
