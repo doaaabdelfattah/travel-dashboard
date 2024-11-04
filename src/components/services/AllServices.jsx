@@ -1,25 +1,44 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchServices } from "../../redux/reducers/servicesSlice";
-import { useEffect } from "react";
+import {
+  fetchServices,
+  deleteService,
+} from "../../redux/reducers/servicesSlice";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ImBin } from "react-icons/im";
+import Popup from "../shared/PopUp";
 
 const AllServices = () => {
   const dispatch = useDispatch();
-  const { services } = useSelector((state) => state.services);
+  const [deletePop, setDeletePop] = useState(null);
+  const openPopUp = (id) => setDeletePop(id);
+  const closePopup = () => setDeletePop(null);
+
+  const { services, loadingServices } = useSelector((state) => state.services);
+
   useEffect(() => {
     dispatch(fetchServices());
   }, [dispatch]);
-  // console.log("service: ", services);
+
+  const handleDelete = async (id) => {
+    // Dispatch delete action and close popup on success
+    const result = await dispatch(deleteService(id));
+    if (result.meta.requestStatus === "fulfilled") {
+      closePopup();
+    } else {
+      console.error("Failed to delete service");
+    }
+  };
   return (
     <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {services.map((service, index) => (
+      {services.map((service, _) => (
         <div
           className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg hover:scale-[1.02] cursor-pointer duration-500"
           key={service._id}
         >
           <img
             alt=""
-            src="../../public/iStock-1623610947.jpg"
+            src={service.imageUrl}
             className="absolute inset-0 h-full w-full object-cover"
           />
 
@@ -40,10 +59,25 @@ const AllServices = () => {
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 </p>
               </Link>
+              <div
+                className="absolute z-50 text-white top-4 hover:text-red-500 cursor-pointer right-4"
+                onClick={() => openPopUp(service._id)}
+              >
+                <ImBin size={"20px"} />
+              </div>
             </div>
           </div>
         </div>
       ))}
+      {deletePop && (
+        <Popup
+          id={deletePop}
+          onClose={closePopup}
+          data={services}
+          loadingData={loadingServices}
+          clickFunc={() => handleDelete(deletePop)}
+        />
+      )}
     </div>
   );
 };

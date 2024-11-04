@@ -1,18 +1,13 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useState } from "react";
 
-const MyMap = () => {
+const MyMap = ({ onMapClick }) => {
   const [markerPosition, setMarkerPosition] = useState(null);
   const mapContainerStyle = {
     width: "100%",
     height: "400px",
   };
-  const redIcon = {
-    url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-    scaledSize: new window.google.maps.Size(40, 40), // Optional: resize the icon
-  };
 
-  // Set the initial center and zoom level
   const center = {
     lat: 25.69598,
     lng: 32.645649,
@@ -26,13 +21,26 @@ const MyMap = () => {
         zoom={10}
         onClick={(event) => {
           const clickedLat = event.latLng.lat();
+
           const clickedLng = event.latLng.lng();
           setMarkerPosition({ lat: clickedLat, lng: clickedLng });
-          console.log(markerPosition);
+          // Pass clicked coordinates to the parent component
+          onMapClick(clickedLat, clickedLng);
         }}
       >
-        {/* Example: Add a marker */}
-        {markerPosition && <Marker position={markerPosition} icon={redIcon} />}
+        {markerPosition && (
+          <Marker
+            position={markerPosition}
+            icon={
+              window.google
+                ? {
+                    url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                    scaledSize: new window.google.maps.Size(40, 40),
+                  }
+                : null
+            }
+          />
+        )}
       </GoogleMap>
     </LoadScript>
   );

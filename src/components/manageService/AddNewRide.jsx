@@ -1,40 +1,48 @@
 import { FaUsers } from "react-icons/fa6";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { FaImages } from "react-icons/fa";
-import { IoIosCloseCircle } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { FaChildren } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrency } from "../../redux/reducers/currencySlice";
-import MainBtn from "../../components/shared/MainBtn";
-import { addNewRide } from "../../redux/reducers/airBalloonRidesSlice";
+import { fetchCompany } from "../../redux/reducers/companySlice";
+import MainBtn from "../shared/MainBtn";
+import {
+  addNewRide,
+  resetLoadingState,
+} from "../../redux/reducers/airBalloonRidesSlice";
 import { fetchServices } from "../../redux/reducers/servicesSlice";
-import ImageUploader from "../../components/shared/ImageUploader";
+import ImageUploader from "../shared/ImageUploader";
+import MyMap from "../shared/MyMap";
+import WarningMsg from "../shared/WarningMsg";
 
 const AddNewRide = () => {
   const dispatch = useDispatch();
   const { services } = useSelector((state) => state.services);
   const { currency } = useSelector((state) => state.currency);
+  const { company } = useSelector((state) => state.company);
+  const { loadingAddRide } = useSelector((state) => state.rides);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
-
+  const closeWarning = () => {
+    dispatch(resetLoadingState());
+  };
   useEffect(() => {
     dispatch(fetchCurrency());
     dispatch(fetchServices());
+    dispatch(fetchCompany());
   }, [dispatch]);
 
   const [ride, setRide] = useState({
     title: "",
-    location: [],
-    price: "",
+    location: {},
+    price: 0,
     description: "",
-    seatsAvailable: "",
-    discount: "",
+    seatsAvailable: 0,
+    discount: 0,
     currency: "",
     isAvailable: true,
-    adultPrice: "",
-    childPrice: "",
+    adultPrice: 0,
+    childPrice: 0,
     imageUrl: [],
     imageUrls: [],
     company: "",
@@ -42,33 +50,58 @@ const AddNewRide = () => {
   });
   console.log("ride: ", ride);
 
+  const handleMapClick = (lat, lng) => {
+    setRide({ ...ride, location: { type: "Point", coordinates: [lat, lng] } });
+    console.log("location: ", ride.location);
+  };
+
   const createFormData = (dataObject) => {
     const formData = new FormData();
     for (const [key, value] of Object.entries(dataObject)) {
-      formData.append(key, value);
+      // Check if the key is 'location' and handle it separately
+      if (key === "location" && typeof value === "object") {
+        // Convert location object to a JSON string
+        formData.append(key, JSON.stringify(value));
+      } else {
+        formData.append(key, value);
+      }
     }
     return formData;
   };
+
   const handleInput = (e) => {
+    const { name, value } = e.target;
     setRide({
       ...ride,
-      [e.target.name]: e.target.value,
+      [name]:
+        name === "price" ||
+        name === "adultPrice" ||
+        name === "childPrice" ||
+        name === "seatsAvailable" ||
+        name === "discount"
+          ? Number(value)
+          : value,
     });
   };
+
   const handleAddRide = (e) => {
     e.preventDefault();
     const formData = createFormData(ride);
     if (selectedFile) {
-      formData.append("imageUrl", selectedFile); // Append the file
+      formData.set("imageUrl", selectedFile); // Append the file
     }
     if (selectedFiles.length > 0) {
-      selectedFiles.forEach((file) => formData.append("imageUrls", file));
+      selectedFiles.forEach((file) => formData.set("imageUrls", file));
+    }
+    // Log each item in the FormData
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
     }
     dispatch(addNewRide(formData));
   };
 
   return (
-    <div>
+    <div className="relative mb-9">
       {" "}
       <form className="flex flex-wrap flex-col lg:flex-nowrap gap-16">
         {/* ROW ONE 111111 ================== */}
@@ -88,12 +121,30 @@ const AddNewRide = () => {
             />
           </div>
           <div className="flex flex-col flex-1 gap-2">
-            <label htmlFor="currency" className="font-semibold text-lg">
-              Currency
+            <label htmlFor="company" className="font-semibold text-lg">
+              Company
             </label>
             <select
               className=" px-3 py-2 border-[1.5px] border-slate-200 outline-none focus:border-main-color  rounded-sm"
-              name="currency"
+              name="company"
+              value={ride.company}
+              onChange={handleInput}
+            >
+              <option value="">Select Company</option>
+              {company.map((item) => (
+                <option value={item._id} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col flex-1 gap-2">
+            <label htmlFor="service" className="font-semibold text-lg">
+              Service
+            </label>
+            <select
+              className=" px-3 py-2 border-[1.5px] border-slate-200 outline-none focus:border-main-color  rounded-sm"
+              name="service"
               value={ride.service}
               onChange={handleInput}
             >
@@ -231,9 +282,30 @@ const AddNewRide = () => {
             setSelectedFiles={setSelectedFiles}
           />
         </div>
+        <div>
+          <MyMap onMapClick={handleMapClick} />
+        </div>
 
-        <div className="text-right">
-          <MainBtn handleOnClick={handleAddRide}>Add Ride</MainBtn>
+        <div className=" w-full flex justify-between items-start ">
+          <div>
+            <MainBtn handleOnClick={handleAddRide}>Add Ride</MainBtn>
+          </div>
+          {loadingAddRide != "idle" && (
+            // <div style={{ position: "absolute", top: "60px", right: "0" }}>
+            <WarningMsg
+              header={loadingAddRide}
+              msgType={loadingAddRide}
+              content={
+                loadingAddRide === "succeeded"
+                  ? "Your ride was added successfully."
+                  : loadingAddRide === "loading"
+                  ? "Please wait while your item is being uploaded."
+                  : "Item upload failed. Please try again."
+              }
+              onClose={closeWarning}
+            />
+            // </div>
+          )}
         </div>
       </form>
     </div>

@@ -4,17 +4,30 @@ import DashboardMain from "../pages/DashboardMain";
 import Services from "../pages/Services";
 import Promotions from "../pages/Promotions";
 // import AllServices from "../pages/services/AllServices";
-import ManageServices from "../pages/services/ManageServices";
+import ManageServices from "../components/manageService/ManageServices";
 import OrderDetails from "../components/orders/OrderDetails";
 import CustomersDetails from "../components/customers/CustomersDetails";
+import AllRides from "../components/manageService/AllRides";
+import AddNewRide from "../components/manageService/AddNewRide";
+import RideSchedule from "../components/manageService/RideSchedule";
 
 export const allRoutes = [
   { path: "/", element: <DashboardMain /> },
 
   // Services Paths ============
   { path: "/services", element: <Services /> },
-  // { path: "/services/all", element: <AllServices /> },
-  { path: "/services/:id", element: <ManageServices /> },
+
+  // ====== Detailed Service
+  {
+    path: "/services/:id",
+    element: <ManageServices />,
+    children: [
+      { index: true, element: <AllRides /> }, // Default route for /services/:id
+      { path: "all", element: <AllRides /> }, // Explicitly set the path as well
+      { path: "add", element: <AddNewRide /> },
+      { path: "schedule", element: <RideSchedule /> },
+    ],
+  },
 
   // Orders Paths ============
   { path: "/orders", element: <Orders /> },

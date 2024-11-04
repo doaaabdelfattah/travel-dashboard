@@ -11,7 +11,7 @@ export const menuItems = [
     icon: <IoCubeSharp size="25px" />,
     submenu: [
       // { name: "All Services", path: "/services/all/" },
-      { name: "Manage services", path: "/services/manage/" },
+      // { name: "Manage services", path: "/services/manage/" },
     ],
   },
 

@@ -4,9 +4,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import orderReducer from './reducers/OrderSlice'
 import userReducer from './reducers/usersSlice'
 import servicesReducer from './reducers/servicesSlice'
-import airBalloonReducer from './reducers/airBalloonRidesSlice'
+// import airBalloonReducer from './reducers/airBalloonRidesSlice'
 import currencyReducer from './reducers/currencySlice'
 import companyReducer from "./reducers/companySlice";
+import airBalloonRidesReduced from "./reducers/airBalloonRidesSlice";
 
 export const store = configureStore({
         reducer: {
@@ -15,7 +16,7 @@ export const store = configureStore({
                 orders: orderReducer,
                 users: userReducer,
                 services: servicesReducer,
-                rides: airBalloonReducer,
+                rides: airBalloonRidesReduced,
                 currency: currencyReducer,
                 company: companyReducer,
         }
