@@ -13,6 +13,7 @@ import { fetchServices } from "../../redux/reducers/servicesSlice";
 import ImageUploader from "../shared/ImageUploader";
 import MyMap from "../shared/MyMap";
 import WarningMsg from "../shared/WarningMsg";
+import MapComponent from "../shared/MapComponent";
 
 const AddNewRide = () => {
   const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const AddNewRide = () => {
       formData.set("imageUrl", selectedFile); // Append the file
     }
     if (selectedFiles.length > 0) {
-      selectedFiles.forEach((file) => formData.set("imageUrls", file));
+      selectedFiles.forEach((file) => formData.append("imageUrls", file));
     }
     // Log each item in the FormData
     for (let [key, value] of formData.entries()) {
@@ -285,6 +286,8 @@ const AddNewRide = () => {
         <div>
           <MyMap onMapClick={handleMapClick} />
         </div>
+
+        <MapComponent />
 
         <div className=" w-full flex justify-between items-start ">
           <div>
