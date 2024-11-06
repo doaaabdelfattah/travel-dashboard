@@ -1,18 +1,24 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addServiceWithImage } from "../../redux/reducers/servicesSlice";
 import ImageUploader from "../shared/ImageUploader";
 import MainBtn from "../shared/MainBtn";
+import { fetchCompany } from "../../redux/reducers/companySlice";
 
 const AddNewService = () => {
   const dispatch = useDispatch();
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const { company } = useSelector((state) => state.company);
 
+  useEffect(() => {
+    dispatch(fetchCompany());
+  }, [dispatch]);
   const [newService, setNewService] = useState({
     name: "",
     description: "",
+    company: "",
     available: true,
     imageUrl: "",
     imageUrls: [],
@@ -65,6 +71,24 @@ const AddNewService = () => {
               id="name"
               placeholder="Service Name"
             />
+          </div>
+          <div className="flex flex-col flex-1 gap-2">
+            <label htmlFor="company" className="font-semibold text-lg">
+              Company
+            </label>
+            <select
+              className=" px-3 py-2 border-[1.5px] border-slate-200 outline-none focus:border-main-color  rounded-sm"
+              name="company"
+              value={newService.company}
+              onChange={handleInput}
+            >
+              <option value="">Select Company</option>
+              {company.map((item) => (
+                <option value={item._id} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="flex flex-col gap-2 w-full">

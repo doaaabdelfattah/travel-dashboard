@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaChildren } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrency } from "../../redux/reducers/currencySlice";
-import { fetchCompany } from "../../redux/reducers/companySlice";
+
 import MainBtn from "../shared/MainBtn";
 import {
   addNewRide,
@@ -11,7 +11,7 @@ import {
 } from "../../redux/reducers/airBalloonRidesSlice";
 import { fetchServices } from "../../redux/reducers/servicesSlice";
 import ImageUploader from "../shared/ImageUploader";
-import MyMap from "../shared/MyMap";
+
 import WarningMsg from "../shared/WarningMsg";
 import MapComponent from "../shared/MapComponent";
 
@@ -19,7 +19,7 @@ const AddNewRide = () => {
   const dispatch = useDispatch();
   const { services } = useSelector((state) => state.services);
   const { currency } = useSelector((state) => state.currency);
-  const { company } = useSelector((state) => state.company);
+
   const { loadingAddRide } = useSelector((state) => state.rides);
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -30,13 +30,11 @@ const AddNewRide = () => {
   useEffect(() => {
     dispatch(fetchCurrency());
     dispatch(fetchServices());
-    dispatch(fetchCompany());
   }, [dispatch]);
 
   const [ride, setRide] = useState({
     title: "",
     location: {},
-    price: 0,
     description: "",
     seatsAvailable: 0,
     discount: 0,
@@ -46,14 +44,20 @@ const AddNewRide = () => {
     childPrice: 0,
     imageUrl: [],
     imageUrls: [],
-    company: "",
+
     service: "",
   });
   console.log("ride: ", ride);
 
   const handleMapClick = (lat, lng) => {
-    setRide({ ...ride, location: { type: "Point", coordinates: [lat, lng] } });
-    console.log("location: ", ride.location);
+    setRide((prevRide) => {
+      const updatedRide = {
+        ...prevRide,
+        location: { type: "Point", coordinates: [lat, lng] },
+      };
+      console.log("Updated location:", updatedRide.location);
+      return updatedRide;
+    });
   };
 
   const createFormData = (dataObject) => {
@@ -75,7 +79,6 @@ const AddNewRide = () => {
     setRide({
       ...ride,
       [name]:
-        name === "price" ||
         name === "adultPrice" ||
         name === "childPrice" ||
         name === "seatsAvailable" ||
@@ -121,24 +124,7 @@ const AddNewRide = () => {
               placeholder="Ride's Title"
             />
           </div>
-          <div className="flex flex-col flex-1 gap-2">
-            <label htmlFor="company" className="font-semibold text-lg">
-              Company
-            </label>
-            <select
-              className=" px-3 py-2 border-[1.5px] border-slate-200 outline-none focus:border-main-color  rounded-sm"
-              name="company"
-              value={ride.company}
-              onChange={handleInput}
-            >
-              <option value="">Select Company</option>
-              {company.map((item) => (
-                <option value={item._id} key={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
+
           <div className="flex flex-col flex-1 gap-2">
             <label htmlFor="service" className="font-semibold text-lg">
               Service
@@ -174,20 +160,6 @@ const AddNewRide = () => {
           </div>
           {/* ROW TWO 222222 ================== */}
           <div className="flex gap-2 w-full">
-            <div className="flex flex-col gap-2 flex-1">
-              <label htmlFor="price" className="font-semibold text-lg">
-                Price
-              </label>
-              <input
-                onChange={handleInput}
-                value={ride.price}
-                type="number"
-                className="w-full px-3 py-2 border-[1.5px] border-slate-200 outline-none focus:border-main-color  rounded-sm"
-                name="price"
-                id="price"
-                placeholder="Price $"
-              />
-            </div>
             <div className="flex flex-col flex-1 gap-2">
               <label htmlFor="currency" className="font-semibold text-lg">
                 Currency
@@ -284,10 +256,9 @@ const AddNewRide = () => {
           />
         </div>
         <div>
-          <MyMap onMapClick={handleMapClick} />
+          {/* <MyMap onMapClick={handleMapClick} /> */}
+          <MapComponent onMapClick={handleMapClick} />
         </div>
-
-        <MapComponent />
 
         <div className=" w-full flex justify-between items-start ">
           <div>

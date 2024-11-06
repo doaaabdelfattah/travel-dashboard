@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const MapComponent = () => {
+const MapComponent = ({ onMapClick }) => {
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const mapRef = useRef(null); // Reference to the map object
   const markerRef = useRef(null); // Reference to the current marker
@@ -22,6 +22,7 @@ const MapComponent = () => {
     map.on("click", (event) => {
       const { lat, lng } = event.latlng;
       setCoordinates({ lat, lng });
+      onMapClick(lat, lng);
 
       // Remove the previous marker if it exists
       if (markerRef.current) {
