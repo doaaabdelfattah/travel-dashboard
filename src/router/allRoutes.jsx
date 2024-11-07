@@ -10,6 +10,7 @@ import CustomersDetails from "../components/customers/CustomersDetails";
 import AllRides from "../components/manageService/AllRides";
 import AddNewRide from "../components/manageService/AddNewRide";
 import RideSchedule from "../components/manageService/RideSchedule";
+import RideDetails from "../components/manageService/RideDetails";
 
 export const allRoutes = [
   { path: "/", element: <DashboardMain /> },
@@ -19,12 +20,13 @@ export const allRoutes = [
 
   // ====== Detailed Service
   {
-    path: "/services/:id",
+    path: "/services/:serviceId",
     element: <ManageServices />,
     children: [
       { index: true, element: <AllRides /> }, // Default route for /services/:id
-      { path: "all", element: <AllRides /> }, // Explicitly set the path as well
+      // { path: "all", element: <AllRides /> }, // Explicitly set the path as well
       { path: "add", element: <AddNewRide /> },
+      { path: ":rideId", element: <RideDetails /> },
       { path: "schedule", element: <RideSchedule /> },
     ],
   },

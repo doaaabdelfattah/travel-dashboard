@@ -4,13 +4,14 @@ import { BiCube } from "react-icons/bi";
 import { LuPlusCircle } from "react-icons/lu";
 import { RiCalendarScheduleLine } from "react-icons/ri";
 
-const Tabs = ({ id }) => {
+const Tabs = ({ serviceId }) => {
   return (
     <div className="bg-white p-5">
       <ul className=" p-1 font-medium text-lg flex items-center gap-3">
         <li className="flex items-center">
           <NavLink
-            to={`/services/${id}/all`}
+            to={`/services/${serviceId}/`}
+            end
             className={({ isActive }) =>
               `p-4 flex items-center gap-2 ${
                 isActive
@@ -25,7 +26,7 @@ const Tabs = ({ id }) => {
         </li>
         <li className="flex items-center">
           <NavLink
-            to={`/services/${id}/add`}
+            to={`/services/${serviceId}/add`}
             className={({ isActive }) =>
               `p-4 flex items-center gap-2 ${
                 isActive
@@ -40,7 +41,7 @@ const Tabs = ({ id }) => {
         </li>
         <li className="flex items-center">
           <NavLink
-            to={`/services/${id}/schedule`}
+            to={`/services/${serviceId}/schedule`}
             className={({ isActive }) =>
               `p-4 flex items-center gap-2 ${
                 isActive

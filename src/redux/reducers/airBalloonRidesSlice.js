@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from '../../api/api'
 
+
 const config = {
   headers: {
     'content-type': `multipart/form-data`,
@@ -15,6 +16,8 @@ const config2 = {
 
 const initialState = {
   rides: [],
+  selectedRides: [],
+  loadingSelectedRides: 'idle',
   loadingRides: 'idle',
   loadingAddRide: 'idle',
   error: null
@@ -25,7 +28,7 @@ const initialState = {
 export const fetchRides = createAsyncThunk('rides/fetchRides', async () => {
   try {
     const response = await api.get('/balloon-rides/');
-    // console.log('api response: ', response.data)
+
     return response.data;
   } catch (error) {
     return error.message;
@@ -36,7 +39,7 @@ export const fetchRides = createAsyncThunk('rides/fetchRides', async () => {
 export const addNewRide = createAsyncThunk('rides/addNewRide', async (info, { rejectWithValue, fulfillWithValue }) => {
   try {
 
-    
+
 
     // Upload single image
     const singleImageFormData = new FormData();
@@ -72,7 +75,7 @@ export const addNewRide = createAsyncThunk('rides/addNewRide', async (info, { re
       info.set('public_ids', JSON.stringify(public_ids));
     }
 
-    
+
 
 
     // Upload All Service info
@@ -87,6 +90,15 @@ export const addNewRide = createAsyncThunk('rides/addNewRide', async (info, { re
 })
 
 
+
+export const fetchRideByServiceID = createAsyncThunk('rides/allServiceRides', async (id, { rejectWithValue, fulfillWithValue }) => {
+  try {
+    const { data } = await api.get(`balloon-rides/service/${id}`);
+    return fulfillWithValue(data);
+  } catch (error) {
+    return rejectWithValue(error.message)
+  }
+})
 
 
 
@@ -124,7 +136,19 @@ const airBalloonRidesSlice = createSlice({
       .addCase(addNewRide.pending, (state) => {
         state.loadingAddRide = 'loading';
         // state.error = action.payload
-      });
+      })
+      .addCase(fetchRideByServiceID.pending, (state) => {
+        state.loadingSelectedRides = 'loading';
+      })
+      .addCase(fetchRideByServiceID.fulfilled, (state, action) => {
+        state.loadingSelectedRides = 'succeed';
+        state.selectedRides = action.payload;
+      })
+      .addCase(fetchRideByServiceID.rejected, (state, action) => {
+        state.loadingSelectedRides = 'failed';
+        state.error = action.payload;
+      })
+
   },
 
 })

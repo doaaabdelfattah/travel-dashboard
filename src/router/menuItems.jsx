@@ -9,10 +9,11 @@ export const menuItems = [
     name: "Services",
     path: "/services",
     icon: <IoCubeSharp size="25px" />,
-    submenu: [
-      // { name: "All Services", path: "/services/all/" },
-      // { name: "Manage services", path: "/services/manage/" },
-    ],
+    submenu: false,
+    // submenu: [
+    //    { name: "All Services", path: "/services/all/" },
+    //    { name: "Manage services", path: "/services/manage/" },
+    // ],
   },
 
   {

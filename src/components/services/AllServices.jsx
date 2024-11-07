@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchServices,
   deleteService,
+  servicesCleanUp,
 } from "../../redux/reducers/servicesSlice";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -18,6 +19,9 @@ const AllServices = () => {
 
   useEffect(() => {
     dispatch(fetchServices());
+    return () => {
+      dispatch(servicesCleanUp());
+    };
   }, [dispatch]);
 
   const handleDelete = async (id) => {

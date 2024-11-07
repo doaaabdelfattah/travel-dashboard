@@ -23,9 +23,13 @@ const initialState = {
 
 // ========== get all Services ================
 export const fetchServices = createAsyncThunk('services/fetchServices', async () => {
-  const response = await api.get('/service/');
-  console.log('api response: ', response.data)
-  return response.data;
+  try {
+    const response = await api.get('/service/');
+    return response.data;
+
+  } catch (error) {
+    return (error.message)
+  }
 
 })
 
@@ -98,7 +102,11 @@ export const deleteService = createAsyncThunk('services/deleteService', async (i
 const servicesSlice = createSlice({
   name: 'services',
   initialState,
-  reducers: {},
+  reducers: {
+    servicesCleanUp: (state) => {
+      state.services = []
+    }
+  },
   extraReducers: (builder) => {
     builder
       // ===== Fetch all Services =======
@@ -137,5 +145,6 @@ const servicesSlice = createSlice({
   }
 
 })
+export const { servicesCleanUp } = servicesSlice.actions;
 
 export default servicesSlice.reducer;
