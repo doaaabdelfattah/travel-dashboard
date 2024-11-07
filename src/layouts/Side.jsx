@@ -11,7 +11,6 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
   const [hoverTitle, setHoverTitle] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [submenu, setSubMenu] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   const removeSelected = () => {
     handleSelectedMenu(null);
@@ -155,7 +154,7 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
       </div>
       {/* USER ========== */}
       <div className=" hover:text-main-color flex justify-center p-5 items-center cursor-pointer gap-2 my-8">
-        <span>Sign out</span>
+        <span className={`${isOpen ? "" : "hidden"}`}>Sign out</span>
         <VscSignOut size={"25px"} />
       </div>
     </header>

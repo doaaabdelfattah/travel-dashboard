@@ -8,26 +8,26 @@ import { fetchRides } from "../../redux/reducers/airBalloonRidesSlice";
 const LatestOrders = () => {
   const dispatch = useDispatch();
   const { orders, loadingOrders } = useSelector((state) => state.orders);
-  const { users, loadingUsers } = useSelector((state) => state.users);
+  // const { users, loadingUsers } = useSelector((state) => state.users);
   const { rides, loadingRides } = useSelector((state) => state.rides);
 
   useEffect(() => {
     dispatch(fetchOrders());
-    dispatch(fetchUsers());
+    // dispatch(fetchUsers());
     dispatch(fetchRides());
   }, [dispatch]);
 
   // Function to find user details by userId
-  const getUserById = (userId) => {
-    return users.find((user) => user._id === userId) || null;
-  };
+  // const getUserById = (userId) => {
+  //   return users.find((user) => user._id === userId) || null;
+  // };
   // Sort orders by orderDate in descending order (most recent first)
   const sortedOrders = orders
     .slice() // Create a copy of the array to avoid mutating the original
     .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate)); // Sorting based on date
 
   // console.log("orders: ", orders);
-  console.log("users: ", users);
+
   console.log("rides: ", rides);
   console.log("loading status: ", loadingRides);
 
@@ -52,7 +52,7 @@ const LatestOrders = () => {
         </thead>
         <tbody>
           {sortedOrders.slice(0, 5).map((item) => {
-            const user = getUserById(item.user);
+            // const user = getUserById(item.user);
             return (
               <tr
                 className="border-b border-dark-grey hover:bg-dark-grey/10"
