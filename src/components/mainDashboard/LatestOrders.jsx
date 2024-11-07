@@ -7,10 +7,10 @@ import { fetchServices } from "../../redux/reducers/servicesSlice";
 import { fetchRides } from "../../redux/reducers/airBalloonRidesSlice";
 const LatestOrders = () => {
   const dispatch = useDispatch();
-  const { orders, loadingOrders } = useSelector((state) => state.orders);
+  // const { orders, loadingOrders } = useSelector((state) => state.orders);
   // const { users, loadingUsers } = useSelector((state) => state.users);
   const { rides, loadingRides } = useSelector((state) => state.rides);
-
+  const orders = [];
   useEffect(() => {
     dispatch(fetchOrders());
     // dispatch(fetchUsers());

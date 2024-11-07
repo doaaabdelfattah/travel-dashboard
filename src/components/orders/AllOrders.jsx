@@ -8,7 +8,7 @@ import ItemStatus from "../../assets/ItemStatus";
 import { OrdersTableHeader } from "../shared/Table/TableHeaders";
 import SearchBar from "../shared/SearchBar";
 
-const AllOrders = () => {
+export const AllOrders = () => {
   const dispatch = useDispatch();
   const { orders } = useSelector((state) => state.orders);
   const [searchTerm, setSearchTerm] = useState("");
