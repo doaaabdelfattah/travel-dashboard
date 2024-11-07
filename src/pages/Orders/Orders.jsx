@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import AllOrders from "../../components/orders/allOrders";
+import AllOrders from "../../components/orders/AllOrders";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchOrders } from "../../redux/reducers/OrderSlice";
