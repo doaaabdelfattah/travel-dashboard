@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ==================== Global Rules ==================== */
-:root  {
+:root {
   /* --hover-color: #ff2d2d; */
   /* --accent-color: #013171; */
   --main-color: #c6783e;

@@ -5,6 +5,7 @@ import { fetchRideByServiceID } from "../../redux/reducers/airBalloonRidesSlice"
 import RideCard from "./RideCard";
 import SearchBar from "../shared/SearchBar";
 import { useParams } from "react-router-dom";
+import AddRideSchedule from "./AddRideSchedule";
 
 const AllRides = () => {
   const dispatch = useDispatch();

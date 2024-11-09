@@ -32,7 +32,7 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
   return (
     <header
       className={`h-screen  sticky top-0 transform transition-all duration-700 ease-in-out flex justify-between flex-col border-border-color border-r-[1.5px] z-[250] ${
-        isOpen ? "w-[240px]" : "w-[100px]"
+        isOpen ? "w-[200px]" : "w-[70px]"
       }`}
     >
       <div>
@@ -47,17 +47,17 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
           <div className=" object-cover">
             <img
               src="../../public/pic-person-01.jpg"
-              className="w-[60px] h-[60px] rounded-full "
+              className="w-[50px] h-[50px] rounded-full "
             ></img>
           </div>
           <div className={` ${isOpen ? "lg:block" : "lg:hidden hidden"}`}>
-            <h1 className="font-medium text-navy-text  text-lg">
+            <h1 className="font-medium text-navy-text  text-md">
               Helen Darwin
             </h1>
             <p className="text-dark-grey text-sm font-normal">Sales Manager</p>
           </div>
         </div>
-        <div className="flex z-[250] justify-center items-center border-border-color border-y-[1.5px] p-5 text-lg font-semibold ">
+        <div className="flex z-[250] justify-center items-center border-border-color border-y-[1.5px] p-5 text-sm font-semibold ">
           <NavLink
             to={"/"}
             className={({ isActive }) =>
@@ -77,8 +77,8 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
         {/*  Main menu ======= */}
         <nav
           className={`${
-            isOpen ? "mt-8" : "mt-14 items-center"
-          }  text-main-text px-10 text-lg flex justify-center  gap-6 flex-col`}
+            isOpen ? "mt-8 items-start ml-4" : "mt-5 items-center"
+          }  text-main-text text-sm flex justify-center gap-4 flex-col`}
         >
           {menuItems.map((item, index) => (
             <div
@@ -90,14 +90,14 @@ const Side = ({ selectedMenuItem, handleSelectedMenu }) => {
                 to={item.path}
                 key={index}
                 className={({ isActive }) =>
-                  `cursor-pointer pt-5 mx-3 rounded custom-hover-effect flex gap-7 items-center justify-center lg:justify-between ${
+                  `cursor-pointer pt-5 mx-2 rounded custom-hover-effect flex gap-2 items-center justify-between ${
                     isActive
                       ? "active-submenu flex gap-2 items-center"
                       : "cursor-pointer flex gap-2 items-center"
                   }`
                 }
               >
-                <div className="flex gap-7 items-center justify-start">
+                <div className="flex gap-4 items-center">
                   <div className="">{item.icon}</div>
                   <span className={`${isOpen ? "block" : "hidden"}`}>
                     {item.name}

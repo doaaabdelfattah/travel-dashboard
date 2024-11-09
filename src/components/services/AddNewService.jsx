@@ -59,7 +59,7 @@ const AddNewService = () => {
       <form className="flex flex-wrap flex-col w-full lg:flex-nowrap gap-16">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="name" className="font-semibold text-lg">
+            <label htmlFor="name" className=" text-md">
               Service Name
             </label>
             <input
@@ -73,7 +73,7 @@ const AddNewService = () => {
             />
           </div>
           <div className="flex flex-col flex-1 gap-2">
-            <label htmlFor="company" className="font-semibold text-lg">
+            <label htmlFor="company" className="text-md">
               Company
             </label>
             <select
@@ -92,7 +92,7 @@ const AddNewService = () => {
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="description" className="font-semibold text-lg">
+            <label htmlFor="description" className="text-md">
               Description
             </label>
             <input

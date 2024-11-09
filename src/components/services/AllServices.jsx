@@ -34,7 +34,7 @@ const AllServices = () => {
     }
   };
   return (
-    <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="mt-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       {services.map((service, _) => (
         <div
           className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg hover:scale-[1.02] cursor-pointer duration-500"
@@ -54,10 +54,10 @@ const AllServices = () => {
                   name: service.name,
                 }}
               >
-                <h3 className="mt-0.5 text-3xl capitalize font-semibold text-white hover:text-main-color">
+                <h3 className="mt-0.5 text-2xl capitalize font-semibold text-white hover:text-main-color">
                   {service.name}
                 </h3>
-                <p className="mt-2 line-clamp-3 text-md/relaxed text-white/95">
+                <p className="mt-2 line-clamp-3 text-sm/relaxed text-white/95">
                   {service.description}
                   <br />
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit.

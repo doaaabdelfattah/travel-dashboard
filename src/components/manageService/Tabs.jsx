@@ -6,8 +6,8 @@ import { RiCalendarScheduleLine } from "react-icons/ri";
 
 const Tabs = ({ serviceId }) => {
   return (
-    <div className="bg-white p-5">
-      <ul className=" p-1 font-medium text-lg flex items-center gap-3">
+    <div className="bg-white p-2">
+      <ul className="  font-medium text-md flex items-center gap-3">
         <li className="flex items-center">
           <NavLink
             to={`/services/${serviceId}/`}

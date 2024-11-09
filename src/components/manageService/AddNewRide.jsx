@@ -111,7 +111,7 @@ const AddNewRide = () => {
         {/* ROW ONE 111111 ================== */}
         <div className="flex gap-4 flex-col w-full">
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="title" className="font-semibold text-lg">
+            <label htmlFor="title" className="font-semibold text-sm">
               Title
             </label>
             <input
@@ -126,7 +126,7 @@ const AddNewRide = () => {
           </div>
 
           <div className="flex flex-col flex-1 gap-2">
-            <label htmlFor="service" className="font-semibold text-lg">
+            <label htmlFor="service" className="font-semibold text-sm">
               Service
             </label>
             <select
@@ -145,7 +145,7 @@ const AddNewRide = () => {
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="description" className="font-semibold text-lg">
+            <label htmlFor="description" className="font-semibold text-sm">
               Description
             </label>
             <input
@@ -161,7 +161,7 @@ const AddNewRide = () => {
           {/* ROW TWO 222222 ================== */}
           <div className="flex gap-2 w-full">
             <div className="flex flex-col flex-1 gap-2">
-              <label htmlFor="currency" className="font-semibold text-lg">
+              <label htmlFor="currency" className="font-semibold text-sm">
                 Currency
               </label>
               <select
@@ -180,7 +180,7 @@ const AddNewRide = () => {
             </div>
 
             <div className="flex flex-col flex-1 gap-2">
-              <label htmlFor="discount" className="font-semibold text-lg">
+              <label htmlFor="discount" className="font-semibold text-sm">
                 Discount
               </label>
               <input
@@ -199,7 +199,7 @@ const AddNewRide = () => {
             <div className="flex flex-1 flex-col gap-2">
               <label
                 htmlFor="seatsAvailable"
-                className="font-semibold text-lg gap-3 "
+                className="font-semibold text-sm gap-3 "
               >
                 <span>Seats Available</span>
               </label>
@@ -216,7 +216,7 @@ const AddNewRide = () => {
             <div className="flex flex-1 flex-col gap-2">
               <label
                 htmlFor="adultPrice"
-                className="font-semibold text-lg flex gap-3 items-center"
+                className="font-semibold text-sm flex gap-3 items-center"
               >
                 <FaUsers /> <span>Adult Price</span>
               </label>
@@ -233,7 +233,7 @@ const AddNewRide = () => {
             <div className="flex flex-1 flex-col gap-2">
               <label
                 htmlFor="childPrice"
-                className="font-semibold text-lg flex gap-3 items-center"
+                className="font-semibold text-sm flex gap-3 items-center"
               >
                 <FaChildren /> <span>Child Price</span>
               </label>
